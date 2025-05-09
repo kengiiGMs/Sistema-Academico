@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Container, Box, Card, CardContent, Typography, TextField, Button, Stack, CircularProgress } from '@mui/material';
+import { useState } from 'react';
+import { Container, Box, Card, CardContent, Typography, TextField, Button, Stack, CircularProgress, Link } from '@mui/material';
 import usarLogin from '../../hooks/login/usarLogin';
 
 const Login = () => {
@@ -26,6 +26,9 @@ const Login = () => {
                                     <TextField id="email" label="Insira o seu Email" variant="filled" onChange={(e) => { setEmail(e.target.value) }} required />
                                     <TextField id="password" label="Insira a sua Senha" variant="filled" type="password" autoComplete="current-password" onChange={(e) => { setSenha(e.target.value) }} required />
                                     <Button variant="contained" type="submit" disabled={loading}>Fazer Login</Button>
+                                    <Link href="/cadastrarLogin" underline="hover" textAlign="center">
+                                        Criar Conta
+                                    </Link>
                                 </Stack>
                             </form>
                         </CardContent>
