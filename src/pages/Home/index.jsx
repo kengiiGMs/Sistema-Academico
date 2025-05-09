@@ -2,18 +2,24 @@ import { useEffect, useState } from 'react';
 import { Container, Box, Typography, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, Paper, Button, CircularProgress, Modal, TextField, Link } from '@mui/material';
 import usarListar from '../../hooks/estudante/usarListar';
 import usarCriar from '../../hooks/estudante/usarCriar';
+import usarDeletar from '../../hooks/estudante/usarDeletar';
 
 const Home = () => {
     const [data, solicitar, loading] = usarListar();
     const [solicitarCriar, loadingCriar] = usarCriar();
+    const [solicitarDeletar, loadingDeletar] = usarDeletar();
+
     const [modalCadastro, setModalCadastro] = useState(false);
-
-
     const [nome, setNome] = useState("");
     const [endereco, setEndereco] = useState("");
     const [curso, setCurso] = useState("");
     const [telefone, setTelefone] = useState("");
     const [email, setEmail] = useState("");
+
+    const [modalDeletar, setModalDeletar] = useState(false);
+    const [idDeletar, setIdDeletar] = useState("");
+    const [nomeDeletar, setNomeDeletar] = useState("");
+
 
     const style = {
         position: 'absolute',
@@ -43,6 +49,28 @@ const Home = () => {
         await solicitarCriar(nome, endereco, curso, telefone, email);
         solicitar();
         fecharModalCadastro();
+    }
+
+    const abrirModalDeletar = () => {
+        setModalDeletar(true);
+    }
+
+    const fecharModalDeletar = () => {
+        setModalDeletar(false);
+    }
+
+    const prepararParaDeletar = (id, nome) => {
+        setIdDeletar(id);
+        setNomeDeletar(nome);
+        abrirModalDeletar();
+    }
+
+    const efetuarExclusao = async (e) => {
+        e.preventDefault();
+
+        await solicitarDeletar(idDeletar);
+        solicitar();
+        fecharModalDeletar();
     }
 
     useEffect(() => {
@@ -87,7 +115,7 @@ const Home = () => {
                                             <TableCell align="right">{estudante.email}</TableCell>
                                             <TableCell align="right">
                                                 <Button variant="contained" sx={{ marginRight: '5px' }}>Editar</Button>
-                                                <Button variant="contained" color='error'>Deletar</Button>
+                                                <Button variant="contained" color='error' onClick={() => { prepararParaDeletar(estudante.id, estudante.nome) }}>Deletar</Button>
                                             </TableCell>
                                         </TableRow>
                                     ))}
@@ -107,15 +135,37 @@ const Home = () => {
                                         <Typography variant="h5" sx={{ marginBlock: '5px' }}>Cadastro de Estudante</Typography>
                                         <TextField id="nome" label="Insira o seu Nome" variant="filled" onChange={(e) => { setNome(e.target.value) }} required sx={{ marginBlock: '5px' }} />
                                         <TextField id="endereco" label="Insira o seu Endereço" variant="filled" onChange={(e) => { setEndereco(e.target.value) }} required sx={{ marginBlock: '5px' }} />
-                                        <TextField id="curso" label="Confirme o seu Curso" variant="filled" onChange={(e) => { setCurso(e.target.value) }} required sx={{ marginBlock: '5px' }} />
+                                        <TextField id="curso" label="Insira o seu Curso" variant="filled" onChange={(e) => { setCurso(e.target.value) }} required sx={{ marginBlock: '5px' }} />
                                         <TextField id="telefone" label="Insira o seu Telefone" variant="filled" onChange={(e) => { setTelefone(e.target.value) }} required sx={{ marginBlock: '5px' }} />
-                                        <TextField id="email" label="Confirme o seu Email" variant="filled" onChange={(e) => { setEmail(e.target.value) }} required sx={{ marginBlock: '5px' }} />
+                                        <TextField id="email" label="Insira o seu Email" variant="filled" onChange={(e) => { setEmail(e.target.value) }} required sx={{ marginBlock: '5px' }} />
 
                                         <Button variant="contained" type="submit" sx={{ marginBlock: '5px' }} disabled={loadingCriar}>Cadastrar</Button>
                                     </Container>
                                 </form>
                                 <Container>
                                     <Link sx={{ color: 'red' }} underline='none' onClick={() => { fecharModalCadastro() }}>Cancelar</Link>
+                                </Container>
+                            </Box>
+                        </Modal>
+
+                        <Modal
+                            open={modalDeletar}
+                            onClose={fecharModalDeletar}
+                            aria-labelledby="modal-modal-title"
+                            aria-describedby="modal-modal-description"
+                        >
+                            <Box sx={style}>
+                                <form onSubmit={efetuarExclusao}>
+                                    <Container sx={{ display: 'flex', flexDirection: 'column' }}>
+                                        <Typography variant="h5" sx={{ marginBlock: '5px' }}>Deletar Estudante</Typography>
+                                        <Typography variant="h5" sx={{ marginBlock: '25px', marginTop: '10px' }}>Deseja deletar {nomeDeletar} ?</Typography>
+
+
+                                        <Button variant="contained" type="submit" sx={{ marginBlock: '5px' }} disabled={loadingDeletar}>Deletar</Button>
+                                    </Container>
+                                </form>
+                                <Container>
+                                    <Link sx={{ color: 'red' }} underline='none' onClick={() => { fecharModalDeletar() }}>Cancelar</Link>
                                 </Container>
                             </Box>
                         </Modal>
