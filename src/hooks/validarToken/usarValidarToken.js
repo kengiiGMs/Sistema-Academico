@@ -13,9 +13,11 @@ const usarValidarToken = async () => {
             if (resposta.status === 200) {
                 return true
             } else {
+                Cookies.remove('token');
                 return false
             }
         } catch (error) {
+            Cookies.remove('token');
             return false
         }
     }

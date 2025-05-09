@@ -1,8 +1,25 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Container, Box, Card, CardContent, Typography, TextField, Button, Stack, CircularProgress, Link } from '@mui/material';
 import usarLogin from '../../hooks/login/usarLogin';
+import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
+import usarValidarToken from "../../hooks/validarToken/usarValidarToken";
 
 const Login = () => {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const token = Cookies.get('token');
+        if (token) {
+            const valido = usarValidarToken(token);
+            if (valido) {
+                navigate('/home');
+            } else {
+                Cookies.remove('token');
+            }
+        }
+    }, [])
+
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
     const [solicitar, loading] = usarLogin();
