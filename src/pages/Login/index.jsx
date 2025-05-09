@@ -30,8 +30,8 @@ const Login = () => {
     }
 
     return (
-        <Container maxWidth={false} sx={{ width: '100vw', height: '100vh' }}>
-            <Box sx={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', }}>
+        <Container maxWidth={false} sx={{ height: '90vh' }}>
+            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
                 {loading ? (
                     <CircularProgress size="3rem" />
                 ) : (
@@ -52,7 +52,7 @@ const Login = () => {
                     </Card>
                 )}
             </Box>
-        </Container>
+        </Container >
     )
 }
 

@@ -35,7 +35,7 @@ const CadastrarLogin = () => {
     }
 
     return (
-        <Container maxWidth={false} sx={{ width: '100vw', height: '100vh' }}>
+        <Container maxWidth={false} sx={{ height: '90vh' }}>
             <Box sx={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', }}>
 
                 {loading ? (

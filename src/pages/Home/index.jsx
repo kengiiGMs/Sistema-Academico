@@ -131,11 +131,9 @@ const Home = () => {
                 </Toolbar>
             </AppBar>
 
-            <Container maxWidth={false} sx={{ width: '100vw' }}>
+            <Container maxWidth={false}>
 
-
-
-                <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+                <Box sx={{ width: '90%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
                     {loading ? (
                         <CircularProgress size="3rem" />
                     ) : (
@@ -144,7 +142,7 @@ const Home = () => {
 
                             <Button variant="contained" sx={{ marginBottom: '10px' }} onClick={abrirModalCadastro}>Cadastrar Estudante</Button>
 
-                            <TableContainer component={Paper} sx={{ maxWidth: 780 }}>
+                            <TableContainer component={Paper} sx={{ maxWidth: 900 }}>
                                 <Table aria-label="simple table">
                                     <TableHead>
                                         <TableRow>
@@ -170,8 +168,8 @@ const Home = () => {
                                                 <TableCell align="right">{estudante.curso}</TableCell>
                                                 <TableCell align="right">{estudante.email}</TableCell>
                                                 <TableCell align="right">
-                                                    <Button variant="contained" sx={{ marginRight: '5px' }} onClick={() => { prepararParaAtualizar(estudante.id, estudante.nome, estudante.telefone, estudante.endereco, estudante.curso, estudante.email) }}>Atualizar</Button>
-                                                    <Button variant="contained" color='error' onClick={() => { prepararParaDeletar(estudante.id, estudante.nome) }}>Deletar</Button>
+                                                    <Button variant="contained" sx={{ marginRight: '10px' }} onClick={() => { prepararParaAtualizar(estudante.id, estudante.nome, estudante.telefone, estudante.endereco, estudante.curso, estudante.email) }}>Atualizar</Button>
+                                                    <Button variant="contained" color='error' onClick={() => { prepararParaDeletar(estudante.id, estudante.nome) }}>Deletar </Button>
                                                 </TableCell>
                                             </TableRow>
                                         ))}
@@ -235,7 +233,7 @@ const Home = () => {
                                 <Box sx={style}>
                                     <form onSubmit={efetuarEdicao}>
                                         <Container sx={{ display: 'flex', flexDirection: 'column' }}>
-                                            <Typography variant="h5" sx={{ marginBlock: '5px' }}>Cadastro de Estudante</Typography>
+                                            <Typography variant="h5" sx={{ marginBlock: '5px' }}>Atualização de Estudante</Typography>
                                             <TextField id="nome" label="Insira o seu Nome" variant="filled" value={nomeAtualizar} onChange={(e) => { setNomeAtualizar(e.target.value) }} required sx={{ marginBlock: '5px' }} />
                                             <TextField id="endereco" label="Insira o seu Endereço" variant="filled" value={enderecoAtualizar} onChange={(e) => { setEnderecoAtualizar(e.target.value) }} required sx={{ marginBlock: '5px' }} />
                                             <TextField id="curso" label="Insira o seu Curso" variant="filled" value={cursoAtualizar} onChange={(e) => { setCursoAtualizar(e.target.value) }} required sx={{ marginBlock: '5px' }} />
