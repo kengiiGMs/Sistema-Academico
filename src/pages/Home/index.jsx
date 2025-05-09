@@ -1,9 +1,49 @@
-import React, { useEffect } from 'react';
-import { Container, Box, Typography, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, Paper, Button, CircularProgress } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { Container, Box, Typography, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, Paper, Button, CircularProgress, Modal, TextField, Link } from '@mui/material';
 import usarListar from '../../hooks/estudante/usarListar';
+import usarCriar from '../../hooks/estudante/usarCriar';
 
 const Home = () => {
     const [data, solicitar, loading] = usarListar();
+    const [solicitarCriar, loadingCriar] = usarCriar();
+    const [modalCadastro, setModalCadastro] = useState(false);
+
+
+    const [nome, setNome] = useState("");
+    const [endereco, setEndereco] = useState("");
+    const [curso, setCurso] = useState("");
+    const [telefone, setTelefone] = useState("");
+    const [email, setEmail] = useState("");
+
+    const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        bgcolor: 'background.paper',
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 4,
+        textAlign: 'center',
+        color: 'black'
+    };
+
+
+    const abrirModalCadastro = () => {
+        setModalCadastro(true);
+    }
+
+    const fecharModalCadastro = () => {
+        setModalCadastro(false);
+    }
+
+    const efetuarCadastro = async (e) => {
+        e.preventDefault();
+        await solicitarCriar(nome, endereco, curso, telefone, email);
+        solicitar();
+        fecharModalCadastro();
+    }
 
     useEffect(() => {
         solicitar();
@@ -18,7 +58,7 @@ const Home = () => {
                     <Box>
                         <Typography variant="h1" sx={{ fontSize: '60px', textAlign: 'center' }}>Estudantes</Typography>
 
-                        <Button variant="contained" sx={{ marginBottom: '10px' }}>Cadastrar Estudante</Button>
+                        <Button variant="contained" sx={{ marginBottom: '10px' }} onClick={abrirModalCadastro}>Cadastrar Estudante</Button>
 
                         <TableContainer component={Paper} sx={{ maxWidth: 780 }}>
                             <Table aria-label="simple table">
@@ -48,13 +88,37 @@ const Home = () => {
                                             <TableCell align="right">
                                                 <Button variant="contained" sx={{ marginRight: '5px' }}>Editar</Button>
                                                 <Button variant="contained" color='error'>Deletar</Button>
-
                                             </TableCell>
                                         </TableRow>
                                     ))}
                                 </TableBody>
                             </Table>
                         </TableContainer>
+
+                        <Modal
+                            open={modalCadastro}
+                            onClose={fecharModalCadastro}
+                            aria-labelledby="modal-modal-title"
+                            aria-describedby="modal-modal-description"
+                        >
+                            <Box sx={style}>
+                                <form onSubmit={efetuarCadastro}>
+                                    <Container sx={{ display: 'flex', flexDirection: 'column' }}>
+                                        <Typography variant="h5" sx={{ marginBlock: '5px' }}>Cadastro de Estudante</Typography>
+                                        <TextField id="nome" label="Insira o seu Nome" variant="filled" onChange={(e) => { setNome(e.target.value) }} required sx={{ marginBlock: '5px' }} />
+                                        <TextField id="endereco" label="Insira o seu Endereço" variant="filled" onChange={(e) => { setEndereco(e.target.value) }} required sx={{ marginBlock: '5px' }} />
+                                        <TextField id="curso" label="Confirme o seu Curso" variant="filled" onChange={(e) => { setCurso(e.target.value) }} required sx={{ marginBlock: '5px' }} />
+                                        <TextField id="telefone" label="Insira o seu Telefone" variant="filled" onChange={(e) => { setTelefone(e.target.value) }} required sx={{ marginBlock: '5px' }} />
+                                        <TextField id="email" label="Confirme o seu Email" variant="filled" onChange={(e) => { setEmail(e.target.value) }} required sx={{ marginBlock: '5px' }} />
+
+                                        <Button variant="contained" type="submit" sx={{ marginBlock: '5px' }} disabled={loadingCriar}>Cadastrar</Button>
+                                    </Container>
+                                </form>
+                                <Container>
+                                    <Link sx={{ color: 'red' }} underline='none' onClick={() => { fecharModalCadastro() }}>Cancelar</Link>
+                                </Container>
+                            </Box>
+                        </Modal>
                     </Box>
                 )}
             </Box>
