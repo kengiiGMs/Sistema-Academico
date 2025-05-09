@@ -1,7 +1,7 @@
 import Cookies from "js-cookie";
 import api from "../../service/api";
 
-const validarToken = async () => {
+const usarValidarToken = async () => {
     const token = Cookies.get("token");
 
     if (!token) {
@@ -21,4 +21,4 @@ const validarToken = async () => {
     }
 }
 
-export default validarToken;
+export default usarValidarToken;

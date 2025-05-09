@@ -8,7 +8,6 @@ const usarDeletar = () => {
         try {
             setLoading(true)
             const token = Cookies.get('token');
-            console.log(id);
             await api.delete(`/estudante/${id}`, { headers: { 'Authorization': `Bearer ${token}` } });
 
             alert('Estudante deletado');

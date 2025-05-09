@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Container, Box, CircularProgress } from '@mui/material';
-import validarToken from "../hooks/validarToken";
+import usarValidarToken from "../hooks/validarToken/usarValidarToken";
 
 const RotaProtegida = ({ children }) => {
     const navigate = useNavigate();
@@ -9,7 +9,7 @@ const RotaProtegida = ({ children }) => {
 
     useEffect(() => {
         const verificar = async () => {
-            const valido = await validarToken();
+            const valido = await usarValidarToken();
             if (!valido) {
                 navigate("/");
             } else {
