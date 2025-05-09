@@ -4,12 +4,15 @@ import usarListar from '../../hooks/estudante/usarListar';
 import usarCriar from '../../hooks/estudante/usarCriar';
 import usarDeletar from '../../hooks/estudante/usarDeletar';
 import usarDeletarToken from '../../hooks/deletarToken/usarDeletarToken';
+import usarAtualizar from '../../hooks/estudante/usarAtualizar';
 
 const Home = () => {
     const [data, solicitar, loading] = usarListar();
     const [solicitarCriar, loadingCriar] = usarCriar();
     const [solicitarDeletar, loadingDeletar] = usarDeletar();
     const [solicitarDeletarToken] = usarDeletarToken();
+    const [solicitarAtualizar, loadingAtualizar] = usarAtualizar();
+
 
     const [modalCadastro, setModalCadastro] = useState(false);
     const [nome, setNome] = useState("");
@@ -22,6 +25,13 @@ const Home = () => {
     const [idDeletar, setIdDeletar] = useState("");
     const [nomeDeletar, setNomeDeletar] = useState("");
 
+    const [modalAtualizar, setModalAtualizar] = useState(false);
+    const [idAtualizar, setIdAtualizar] = useState("");
+    const [nomeAtualizar, setNomeAtualizar] = useState("");
+    const [enderecoAtualizar, setEnderecoAtualizar] = useState("");
+    const [cursoAtualizar, setCursoAtualizar] = useState("");
+    const [telefoneAtualizar, setTelefoneAtualizar] = useState("");
+    const [emailAtualizar, setEmailAtualizar] = useState("");
 
     const style = {
         position: 'absolute',
@@ -74,6 +84,32 @@ const Home = () => {
         solicitar();
         fecharModalDeletar();
     }
+
+    const abrirModalAtualizar = () => {
+        setModalAtualizar(true);
+    }
+
+    const fecharModalAtualizar = () => {
+        setModalAtualizar(false);
+    }
+
+    const prepararParaAtualizar = (id, nome, telefone, endereco, curso, email) => {
+        setIdAtualizar(id);
+        setNomeAtualizar(nome);
+        setTelefoneAtualizar(telefone);
+        setEnderecoAtualizar(endereco);
+        setCursoAtualizar(curso);
+        setEmailAtualizar(email)
+        abrirModalAtualizar();
+    }
+
+    const efetuarEdicao = async (e) => {
+        e.preventDefault();
+
+        await solicitarAtualizar(nomeAtualizar, enderecoAtualizar, cursoAtualizar, telefoneAtualizar, emailAtualizar, idAtualizar);
+        solicitar();
+    }
+
 
     useEffect(() => {
         solicitar();
@@ -134,7 +170,7 @@ const Home = () => {
                                                 <TableCell align="right">{estudante.curso}</TableCell>
                                                 <TableCell align="right">{estudante.email}</TableCell>
                                                 <TableCell align="right">
-                                                    <Button variant="contained" sx={{ marginRight: '5px' }}>Editar</Button>
+                                                    <Button variant="contained" sx={{ marginRight: '5px' }} onClick={() => { prepararParaAtualizar(estudante.id, estudante.nome, estudante.telefone, estudante.endereco, estudante.curso, estudante.email) }}>Atualizar</Button>
                                                     <Button variant="contained" color='error' onClick={() => { prepararParaDeletar(estudante.id, estudante.nome) }}>Deletar</Button>
                                                 </TableCell>
                                             </TableRow>
@@ -186,6 +222,31 @@ const Home = () => {
                                     </form>
                                     <Container>
                                         <Link sx={{ color: 'red' }} underline='none' onClick={() => { fecharModalDeletar() }}>Cancelar</Link>
+                                    </Container>
+                                </Box>
+                            </Modal>
+
+                            <Modal
+                                open={modalAtualizar}
+                                onClose={fecharModalAtualizar}
+                                aria-labelledby="modal-modal-title"
+                                aria-describedby="modal-modal-description"
+                            >
+                                <Box sx={style}>
+                                    <form onSubmit={efetuarEdicao}>
+                                        <Container sx={{ display: 'flex', flexDirection: 'column' }}>
+                                            <Typography variant="h5" sx={{ marginBlock: '5px' }}>Cadastro de Estudante</Typography>
+                                            <TextField id="nome" label="Insira o seu Nome" variant="filled" value={nomeAtualizar} onChange={(e) => { setNomeAtualizar(e.target.value) }} required sx={{ marginBlock: '5px' }} />
+                                            <TextField id="endereco" label="Insira o seu Endereço" variant="filled" value={enderecoAtualizar} onChange={(e) => { setEnderecoAtualizar(e.target.value) }} required sx={{ marginBlock: '5px' }} />
+                                            <TextField id="curso" label="Insira o seu Curso" variant="filled" value={cursoAtualizar} onChange={(e) => { setCursoAtualizar(e.target.value) }} required sx={{ marginBlock: '5px' }} />
+                                            <TextField id="telefone" label="Insira o seu Telefone" variant="filled" value={telefoneAtualizar} onChange={(e) => { setTelefoneAtualizar(e.target.value) }} required sx={{ marginBlock: '5px' }} />
+                                            <TextField id="email" label="Insira o seu Email" variant="filled" value={emailAtualizar} onChange={(e) => { setEmailAtualizar(e.target.value) }} required sx={{ marginBlock: '5px' }} />
+
+                                            <Button variant="contained" type="submit" sx={{ marginBlock: '5px' }} disabled={loadingAtualizar}>Atualizar</Button>
+                                        </Container>
+                                    </form>
+                                    <Container>
+                                        <Link sx={{ color: 'red' }} underline='none' onClick={() => { fecharModalAtualizar() }}>Cancelar</Link>
                                     </Container>
                                 </Box>
                             </Modal>
