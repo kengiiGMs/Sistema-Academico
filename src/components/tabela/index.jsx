@@ -2,7 +2,7 @@ import { TableContainer, Table, TableHead, TableRow, TableBody, Paper } from '@m
 
 const Tabela = ({ cabecalho, corpo }) => {
     return (
-        <TableContainer component={Paper} sx={{ maxWidth: 900 }}>
+        <TableContainer component={Paper} sx={{ maxWidth: "900%" }}>
             <Table aria-label='simple table'>
                 <TableHead>
                     <TableRow>
