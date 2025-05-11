@@ -1,113 +1,86 @@
-import { useEffect, useState } from 'react';
-import { Container, Box, TableRow, TableCell, Button, } from '@mui/material';
+import { useState } from 'react';
+import { Container, Button, Typography, TextField, Link } from '@mui/material';
 
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
-
-import usarListar from '../../hooks/estudante/usarListar';
+import usarCriar from '../../hooks/estudante/usarCriar';
 
 import BarraDeNavegacao from '../../components/barraDeNavegacao';
+import CartaoComFormulario from '../../components/cartaoComFormulario';
 import IndicadorDeCarregamento from '../../components/indicadorDeCarregamento';
-import Tabela from '../../components/tabela';
-
-import JanelaModalCadastrar from '../../components/janelaModalPersonalizada/janelaModalCriar';
-import JanelaModalDeletar from '../../components/janelaModalPersonalizada/janelaModalDeletar';
-import JanelaModalEditar from '../../components/janelaModalPersonalizada/janelaModalEditar';
+import ContainerCentralizado from '../../components/containerCentralizado';
 
 const Home = () => {
-    const [data, solicitar, loading] = usarListar();
+    const [nome, setNome] = useState("");
+    const [endereco, setEndereco] = useState("");
+    const [curso, setCurso] = useState("");
+    const [telefone, setTelefone] = useState("");
+    const [email, setEmail] = useState("");
 
-    const [abrirModalCadastro, setAbriModalCadastro] = useState(false);
+    const [solicitarCriar, carregando] = usarCriar();
 
-    const [abrirModalDeletar, setAbriModalDeletar] = useState(false);
-    const [idDeletar, setIdDeletar] = useState('');
-    const [nomeDeletar, setNomeDeletar] = useState('');
+    const criarEstudante = async (e) => {
+        e.preventDefault();
+        await solicitarCriar(nome, endereco, curso, telefone, email);
 
-    const [abrirModalEditar, setAbrirModalEditar] = useState(false);
-    const [idEditar, setIdEditar] = useState('');
-    const [nomeEditar, setNomeEditar] = useState('');
-    const [enderecoEditar, setEnderecoEditar] = useState('');
-    const [cursoEditar, setCursoEditar] = useState('');
-    const [telefoneEditar, setTelefoneEditar] = useState('');
-    const [emailEditar, setEmailEditar] = useState('');
-
-    const colunas = ['Nome', 'Telefone', 'Endereco', 'Curso', 'Email', 'Ações'];
-    const cabecalhoDaTabela = () => {
-        return colunas.map((coluna) => {
-            return <TableCell key={coluna}>{coluna}</TableCell>
-        })
     }
-
-    const corpoDaTabela = () => {
-        return data.map((estudante) => (
-            <TableRow
-                key={estudante.id}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-                <TableCell component='th' scope='row'>
-                    {estudante.nome}
-                </TableCell>
-                <TableCell align='right'>{estudante.telefone}</TableCell>
-                <TableCell align='right'>{estudante.endereco}</TableCell>
-                <TableCell align='right'>{estudante.curso}</TableCell>
-                <TableCell align='right'>{estudante.email}</TableCell>
-                <TableCell align='right'>
-                    <Button variant='contained' sx={{ marginRight: '10px' }} onClick={() => { prepararParaEditar(estudante.id, estudante.nome, estudante.telefone, estudante.endereco, estudante.curso, estudante.email) }}><EditIcon /></Button>
-                    <Button variant='contained' color='error' onClick={() => { prepararParaDeletar(estudante.id, estudante.nome) }}><DeleteIcon /></Button>
-                </TableCell>
-            </TableRow>
-        ))
-    }
-
-    const prepararParaDeletar = (id, nome) => {
-        setIdDeletar(id);
-        setNomeDeletar(nome);
-        setAbriModalDeletar(true);
-    }
-
-    const prepararParaEditar = (id, nome, telefone, endereco, curso, email) => {
-        setIdEditar(id);
-        setNomeEditar(nome);
-        setTelefoneEditar(telefone);
-        setEnderecoEditar(endereco);
-        setCursoEditar(curso);
-        setEmailEditar(email)
-        setAbrirModalEditar(true);
-    }
-
-    useEffect(() => {
-        solicitar();
-    }, []);
-
-    useEffect(() => {
-        if (!abrirModalCadastro, !abrirModalEditar, !abrirModalDeletar, !abrirModalEditar) {
-            solicitar();
-        }
-    }, [abrirModalCadastro, abrirModalEditar, abrirModalDeletar, abrirModalEditar])
 
     return (
         <>
             <BarraDeNavegacao />
+            {carregando ? (
+                <ContainerCentralizado>
+                    <IndicadorDeCarregamento tamanho='3rem' />
+                </ContainerCentralizado>
+            ) : (
+                <Container sx={{ marginTop: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
 
-            <Container maxWidth={false}>
+                    <CartaoComFormulario funcaoAoEnviarFormulario={criarEstudante}>
+                        <Typography variant='h5' align='center'>Cadastro do Estudante</Typography>
+                        <TextField
+                            id='nome'
+                            label='Insira o Nome'
+                            variant='filled'
+                            onChange={(e) => { setNome(e.target.value) }}
+                            required
+                        />
+                        <TextField
+                            id='endereco'
+                            label='Insira o endereço'
+                            variant='filled'
+                            onChange={(e) => { setEndereco(e.target.value) }}
+                            required
+                        />
 
-                <Box sx={{ width: '90%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
-                    {loading ? (
-                        <IndicadorDeCarregamento tamanho='3rem' />
-                    ) : (
-                        <Box>
+                        <TextField
+                            id='curso'
+                            label='Insira o curso'
+                            variant='filled'
+                            onChange={(e) => { setCurso(e.target.value) }}
+                            required
+                        />
 
-                            <Button variant='contained' sx={{ marginBottom: '10px', marginTop: '10px' }} onClick={() => { setAbriModalCadastro(true) }}>Cadastrar Estudante</Button>
+                        <TextField
+                            id='telefone'
+                            label='Insira o telefone'
+                            variant='filled'
+                            type='number'
+                            onChange={(e) => { setTelefone(e.target.value) }}
+                            required
+                        />
 
-                            <Tabela cabecalho={cabecalhoDaTabela()} corpo={corpoDaTabela()} />
+                        <TextField
+                            id='email'
+                            label='Insira o email'
+                            variant='filled'
+                            onChange={(e) => { setEmail(e.target.value) }}
+                            required
+                        />
 
-                            <JanelaModalCadastrar abrir={abrirModalCadastro} fechar={() => setAbriModalCadastro(false)} />
-                            <JanelaModalDeletar abrir={abrirModalDeletar} fechar={() => setAbriModalDeletar(false)} nome={nomeDeletar} id={idDeletar} />
-                            <JanelaModalEditar abrir={abrirModalEditar} fechar={() => setAbrirModalEditar(false)} nome={nomeEditar} id={idEditar} endereco={enderecoEditar} curso={cursoEditar} telefone={telefoneEditar} email={emailEditar} />
-                        </Box>
-                    )}
-                </Box>
-            </Container>
+                        <Button variant='contained' type='submit' disabled={carregando}>Cadastrar</Button>
+                        <Link href='/gestao' underline='hover' textAlign='center'>Gerir Estudantes</Link>
+                    </CartaoComFormulario>
+                </Container>
+            )}
+
         </>
     )
 }
