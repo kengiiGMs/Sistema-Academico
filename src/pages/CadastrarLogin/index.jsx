@@ -28,7 +28,7 @@ const CadastrarLogin = () => {
     }
 
     return (
-        <Container sx={{ display: 'flex', flexDirection: 'column', height: '100vh', alignItems: 'center', justifyContent: 'center' }}>
+        <Container sx={{ display: 'flex', flexDirection: 'column', height: '90vh', alignItems: 'center', justifyContent: 'center' }}>
             <Container sx={{ backgroundColor: 'white', width: { xs: "100%", sm: "70%", md: "60%", lg: "45%" }, borderRadius: "10px", padding: "20px" }}>
                 <form onSubmit={criarDiretor}>
                     <Container sx={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>

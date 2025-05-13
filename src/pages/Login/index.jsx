@@ -19,7 +19,7 @@ const Login = () => {
 
     return (
 
-        <Container sx={{ display: 'flex', flexDirection: 'column', height: '100vh', alignItems: 'center', justifyContent: 'center' }}>
+        <Container sx={{ display: 'flex', flexDirection: 'column', height: '95vh', alignItems: 'center', justifyContent: 'center' }}>
             <Container sx={{ backgroundColor: 'white', width: { xs: "100%", sm: "70%", md: "60%", lg: "45%" }, borderRadius: "10px", padding: "20px" }}>
                 <Box component="img" src="./logo.png" sx={{ width: { xs: "50%", sm: "60%", md: "40%", lg: "50%" }, display: 'block', margin: 'auto' }}>
                 </Box>
