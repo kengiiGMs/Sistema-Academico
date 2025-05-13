@@ -4,9 +4,7 @@ import { Container, Button, Typography, TextField, Link } from '@mui/material';
 import usarCriar from '../../hooks/estudante/usarCriar';
 
 import BarraDeNavegacao from '../../components/barraDeNavegacao';
-import CartaoComFormulario from '../../components/cartaoComFormulario';
 import IndicadorDeCarregamento from '../../components/indicadorDeCarregamento';
-import ContainerCentralizado from '../../components/containerCentralizado';
 
 const Home = () => {
     const [nome, setNome] = useState("");

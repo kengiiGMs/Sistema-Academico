@@ -1,6 +1,5 @@
 import { Container, Typography, Button } from '@mui/material';
 import { useNavigate } from "react-router-dom";
-import ContainerCenter from "../../components/containerCentralizado";
 
 const NaoEncontrado = () => {
     const navigate = useNavigate();
