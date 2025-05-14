@@ -1,24 +1,26 @@
-import { AppBar, Toolbar, Typography, Button } from '@mui/material';
-
-import usarDeletarToken from '../../hooks/deletarToken/usarDeletarToken';
+import { Button, IconButton, AppBar, Toolbar, Box } from '@mui/material';
+import useDeletarTokenDiretor from '../../hooks/diretor/useDeletarTokenDiretor';
 
 const BarraDeNavegacao = () => {
-    const [solicitarDeletarToken] = usarDeletarToken();
-
+    const [solicitar] = useDeletarTokenDiretor();
     return (
-        <AppBar position='static' color='inherit'>
+        <AppBar position="static">
             <Toolbar>
+                <IconButton
+                    size="large"
+                    edge="start"
+                    color="inherit"
+                    aria-label="menu"
+                    sx={{ mr: 2 }}
+                >
+                    <Box component="img" src="./logoFullWhite.png" sx={{ width: '40px', display: 'block', margin: 'auto', borderRadius: '100px' }}></Box>
 
-                <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
-                    Sistema Acadêmico
-                </Typography>
-
-                <div>
-                    <Button variant='contained' sx={{ marginBlock: '5px' }} color='error' onClick={() => { solicitarDeletarToken() }}>Sair</Button>
-                </div>
+                </IconButton>
+                <Box sx={{ flexGrow: '1' }}>  </Box>
+                <Button color="inherit" onClick={solicitar}>Sair</Button>
 
             </Toolbar>
-        </AppBar >
+        </AppBar>
     )
 }
 
