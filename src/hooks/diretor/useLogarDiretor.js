@@ -14,10 +14,10 @@ const useLogarDiretor = () => {
             const resposta = await api.post("/diretores/login", { "email": email, "password": senha });
 
             if (resposta.data.token) {
-                Cookies.set("token", resposta.data.token, { expires: 7 });
+                Cookies.set("token_adm", resposta.data.token, { expires: 7 });
             }
 
-            navigate('/home')
+            navigate('/gestao')
         } catch (erro) {
             alert(`Erro: ${erro.response?.data?.error || "Erro - server"}`);
         } finally {
