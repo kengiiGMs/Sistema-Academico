@@ -13,7 +13,7 @@ const useDeletarTokenDiretor = () => {
 
             alert('Deslogado');
 
-            navigate("/");
+            navigate("/diretor");
 
         } catch (erro) {
             alert(`Erro: ${erro.response?.data?.error || "Erro - server"}`);

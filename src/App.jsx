@@ -1,8 +1,8 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
-import Login from './pages/Login'
+import LoginDiretor from './pages/LoginDiretor'
 import NaoEncontrado from './pages/NaoEncontrado'
-import CadastrarLogin from './pages/CadastrarLogin'
+import CadastrarLoginDiretor from './pages/CadastrarLoginDiretor'
 import CadastrarLoginEstudante from './pages/CadastrarLoginEstudante'
 import Gestao from './pages/Gestao'
 
@@ -12,10 +12,12 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Login />} />
-        <Route path='/cadastrarLogin' element={<CadastrarLogin />} />
-        <Route path='/cadastrarLogin/estudante' element={<CadastrarLoginEstudante />} />
+        <Route path='/diretor' element={<LoginDiretor />} />
+        <Route path='/diretor/cadastrarLogin' element={<CadastrarLoginDiretor />} />
         <Route path='/gestao' element={<RotaProtegidaDiretor><Gestao /></RotaProtegidaDiretor>} />
+
+        <Route path='/cadastrarLogin' element={<CadastrarLoginEstudante />} />
+
         <Route path='*' element={<NaoEncontrado />} />
       </Routes>
     </BrowserRouter>

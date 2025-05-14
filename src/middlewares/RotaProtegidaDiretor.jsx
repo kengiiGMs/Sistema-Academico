@@ -11,7 +11,7 @@ const RotaProtegidaDiretor = ({ children }) => {
         const verificar = async () => {
             const valido = await useValidarTokenDiretor();
             if (!valido) {
-                navigate("/");
+                navigate("/diretor");
             } else {
                 setAutenticado(true);
             }

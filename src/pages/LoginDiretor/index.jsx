@@ -49,7 +49,7 @@ const Login = () => {
 
                 <Typography fontSize="0.9rem" textAlign="center">
                     Não possui uma conta?{' '}
-                    <Link href="/cadastrarLogin" underline="hover">
+                    <Link href="/diretor/cadastrarLogin" underline="hover">
                         Criar Conta
                     </Link>
                 </Typography>

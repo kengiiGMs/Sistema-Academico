@@ -14,10 +14,10 @@ const useCriarDiretor = () => {
 
             alert('Diretor cadastrado');
 
-            navigate('/')
+            navigate('/diretor')
         } catch (erro) {
             console.error(erro)
-            alert(`Erro: ${erro.response?.data?.detalhes || "Erro - server"}`);
+            alert(`Erro: ${erro.response?.data?.detalhes || erro.response?.data?.error}`);
         } finally {
             setLoading(false)
         }
