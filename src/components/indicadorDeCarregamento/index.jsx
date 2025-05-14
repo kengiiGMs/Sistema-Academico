@@ -1,8 +1,12 @@
-import { CircularProgress } from '@mui/material';
+import { CircularProgress, Container, Box } from '@mui/material';
 
-const IndicadorDeCarregamento = ({ tamanho }) => {
+const IndicadorDeCarregamento = () => {
     return (
-        <CircularProgress size={tamanho} />
+        <Container maxWidth={false} sx={{ width: '100vw' }}>
+            <Box sx={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+                <CircularProgress size="3rem" />
+            </Box>
+        </Container>
     )
 }
 
