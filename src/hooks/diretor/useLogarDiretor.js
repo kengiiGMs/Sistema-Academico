@@ -14,7 +14,7 @@ const useLogarDiretor = () => {
             const resposta = await api.post("/diretores/login", { "email": email, "password": senha });
 
             if (resposta.data.token) {
-                Cookies.set("token_adm", resposta.data.token, { expires: 7 });
+                Cookies.set("token_diretor", resposta.data.token, { expires: 7 });
             }
 
             navigate('/gestao')

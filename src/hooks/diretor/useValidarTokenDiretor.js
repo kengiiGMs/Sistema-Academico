@@ -2,7 +2,7 @@ import Cookies from "js-cookie";
 import api from "../../service/api";
 
 const useValidarTokenDiretor = async () => {
-    const token = Cookies.get("token_adm");
+    const token = Cookies.get("token_diretor");
 
     if (!token) {
         return false
@@ -13,11 +13,11 @@ const useValidarTokenDiretor = async () => {
             if (resposta.status === 200) {
                 return true
             } else {
-                Cookies.remove('token_adm');
+                Cookies.remove('token_diretor');
                 return false
             }
         } catch (error) {
-            Cookies.remove('token_adm');
+            Cookies.remove('token_diretor');
             return false
         }
     }
