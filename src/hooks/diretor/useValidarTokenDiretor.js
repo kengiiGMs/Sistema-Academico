@@ -2,22 +2,22 @@ import Cookies from "js-cookie";
 import api from "../../service/api";
 
 const useValidarTokenDiretor = async () => {
-    const token = Cookies.get("token_diretor");
+    const token = Cookies.get("token");
 
     if (!token) {
         return false
     } else {
         try {
-            const resposta = await api.post("/diretores/token/validar", {}, { headers: { 'Authorization': `Bearer ${token}` } })
+            const resposta = await api.post("/usuarios/token/validar", {}, { headers: { 'Authorization': `Bearer ${token}` } })
 
             if (resposta.status === 200) {
-                return true
+                return resposta.data
             } else {
-                Cookies.remove('token_diretor');
+                Cookies.remove('token');
                 return false
             }
         } catch (error) {
-            Cookies.remove('token_diretor');
+            Cookies.remove('token');
             return false
         }
     }

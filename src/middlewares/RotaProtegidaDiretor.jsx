@@ -11,9 +11,13 @@ const RotaProtegidaDiretor = ({ children }) => {
         const verificar = async () => {
             const valido = await useValidarTokenDiretor();
             if (!valido) {
-                navigate("/diretor");
+                navigate("/");
             } else {
-                setAutenticado(true);
+                if (valido.usuario.tipo === 'DIRETOR') {
+                    setAutenticado(true);
+                } else {
+                    navigate("/");
+                }
             }
         };
 

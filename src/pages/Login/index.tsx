@@ -1,13 +1,13 @@
 import { useState } from 'react';
 
-import usarLogarDiretor from '../../hooks/diretor/useLogarDiretor';
+import useLogar from '../../hooks/usuario/useLogar'
 
-import { Typography, TextField, Button, Link, Box, CircularProgress } from '@mui/material';
+import { Typography, TextField, Button, Box, CircularProgress } from '@mui/material';
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
-    const [solicitar, loading] = usarLogarDiretor();
+    const [solicitar, loading] = useLogar();
 
     const fazerLogin = async (e) => {
         e.preventDefault();
@@ -46,13 +46,6 @@ const Login = () => {
                 <Button variant="contained" type="submit" disabled={loading} fullWidth>
                     {loading ? <CircularProgress size={24} color="inherit" /> : "Fazer Login"}
                 </Button>
-
-                <Typography fontSize="0.9rem" textAlign="center">
-                    Não possui uma conta?{' '}
-                    <Link href="/diretor/cadastrarLogin" underline="hover">
-                        Criar Conta
-                    </Link>
-                </Typography>
             </Box>
         </Box>
     )

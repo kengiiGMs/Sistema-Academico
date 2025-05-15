@@ -26,7 +26,7 @@ const Gestao = () => {
                                     <TableCell sx={{ color: 'var(--primaryColor)', fontWeight: 'bold' }} >Nome</TableCell>
                                     <TableCell sx={{ color: 'var(--primaryColor)', fontWeight: 'bold' }}>Email</TableCell>
                                     <TableCell sx={{ color: 'var(--primaryColor)', fontWeight: 'bold' }}>Endereço</TableCell>
-                                    <TableCell sx={{ color: 'var(--primaryColor)', fontWeight: 'bold' }}>Curso</TableCell>
+                                    <TableCell sx={{ color: 'var(--primaryColor)', fontWeight: 'bold' }}>RA</TableCell>
                                     <TableCell sx={{ color: 'var(--primaryColor)', fontWeight: 'bold' }}>Telefone</TableCell>
                                 </TableRow>
                             </TableHead>
@@ -34,7 +34,7 @@ const Gestao = () => {
                                 {Array.isArray(dados) && dados.map((estudante) => (
                                     <TableRow key={estudante.id} >
                                         <TableCell>{estudante.nome}</TableCell>
-                                        <TableCell>{estudante.email}</TableCell>
+                                        <TableCell>{estudante.usuario.email}</TableCell>
                                         <TableCell sx={{
                                             maxWidth: 200,
                                             whiteSpace: 'nowrap',
@@ -43,7 +43,7 @@ const Gestao = () => {
                                         }}
                                             title={estudante.endereco}
                                         >{estudante.endereco}</TableCell>
-                                        <TableCell>{estudante.curso}</TableCell>
+                                        <TableCell>{estudante.ra}</TableCell>
                                         <TableCell>{estudante.telefone}</TableCell>
                                     </TableRow>
                                 ))}

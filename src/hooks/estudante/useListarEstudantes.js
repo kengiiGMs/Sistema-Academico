@@ -10,7 +10,7 @@ const useListarEstudantes = () => {
         try {
             setLoading(true);
 
-            const token = Cookies.get('token_diretor');
+            const token = Cookies.get('token');
 
             const resposta = await api.get("/estudantes", { headers: { 'Authorization': `Bearer ${token}` } });
 

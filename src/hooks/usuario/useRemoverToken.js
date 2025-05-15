@@ -2,18 +2,18 @@ import api from "../../service/api";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 
-const useDeletarTokenDiretor = () => {
+const useRemoverToken = () => {
     const navigate = useNavigate();
 
     async function solicitar() {
         try {
-            const token = Cookies.get('token_diretor');
-            await api.post('/diretores/token/remover', {}, { headers: { 'Authorization': `Bearer ${token}` } });
-            Cookies.remove('token_diretor');
+            const token = Cookies.get('token');
+            await api.post('/usuarios/token/remover', {}, { headers: { 'Authorization': `Bearer ${token}` } });
+            Cookies.remove('token');
 
             alert('Deslogado');
 
-            navigate("/diretor");
+            navigate("/");
 
         } catch (erro) {
             alert(`Erro: ${erro.response?.data?.error || "Erro - server"}`);
@@ -22,4 +22,4 @@ const useDeletarTokenDiretor = () => {
     return [solicitar];
 }
 
-export default useDeletarTokenDiretor;
+export default useRemoverToken;

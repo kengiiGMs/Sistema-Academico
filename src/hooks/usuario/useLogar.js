@@ -3,7 +3,7 @@ import api from "../../service/api";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 
-const useLogarDiretor = () => {
+const useLogar = () => {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
@@ -11,13 +11,22 @@ const useLogarDiretor = () => {
         try {
             setLoading(true);
 
-            const resposta = await api.post("/diretores/login", { "email": email, "password": senha });
+            const resposta = await api.post("/usuarios/login", { "email": email, "password": senha });
 
             if (resposta.data.token) {
-                Cookies.set("token_diretor", resposta.data.token, { expires: 7 });
+                Cookies.set("token", resposta.data.token, { expires: 7 });
             }
 
-            navigate('/gestao')
+            if (resposta.data.usuario.tipo === 'DIRETOR') {
+                navigate('/gestao')
+            }
+            if (resposta.data.usuario.tipo === 'ESTUDANTE') {
+                navigate('/home')
+            }
+            if (resposta.data.usuario.tipo === 'PROFESSOR') {
+                navigate('/turmas')
+            }
+
         } catch (erro) {
             alert(`Erro: ${erro.response?.data?.error || "Erro - server"}`);
         } finally {
@@ -27,4 +36,4 @@ const useLogarDiretor = () => {
     return [solicitar, loading];
 }
 
-export default useLogarDiretor;
+export default useLogar;
