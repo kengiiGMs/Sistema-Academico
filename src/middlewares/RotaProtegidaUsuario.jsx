@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import useValidarToken from "../hooks/usuario/useValidarToken";
 import IndicadorDeCarregamento from "../components/indicadorDeCarregamento";
 
-const RotaProtegidaDiretor = ({ children }) => {
+const RotaProtegidaUsuario = ({ children }) => {
     const navigate = useNavigate();
     const [autenticado, setAutenticado] = useState(null);
 
@@ -13,7 +13,7 @@ const RotaProtegidaDiretor = ({ children }) => {
             if (!valido) {
                 navigate("/");
             } else {
-                if (valido.usuario.tipo === 'DIRETOR') {
+                if (valido.usuario.tipo === 'ESTUDANTE') {
                     setAutenticado(true);
                 } else {
                     navigate("/");
@@ -33,4 +33,4 @@ const RotaProtegidaDiretor = ({ children }) => {
     return <>{children}</>;
 };
 
-export default RotaProtegidaDiretor;
+export default RotaProtegidaUsuario;

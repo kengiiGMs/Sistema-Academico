@@ -10,6 +10,7 @@ const useRemoverToken = () => {
             const token = Cookies.get('token');
             await api.post('/usuarios/token/remover', {}, { headers: { 'Authorization': `Bearer ${token}` } });
             Cookies.remove('token');
+            Cookies.remove('id_usuario');
 
             alert('Deslogado');
 

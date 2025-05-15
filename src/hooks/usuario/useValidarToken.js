@@ -14,10 +14,12 @@ const useValidarTokenDiretor = async () => {
                 return resposta.data
             } else {
                 Cookies.remove('token');
+                Cookies.remove('id_usuario');
                 return false
             }
         } catch (error) {
             Cookies.remove('token');
+            Cookies.remove('id_usuario');
             return false
         }
     }

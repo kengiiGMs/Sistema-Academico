@@ -15,6 +15,7 @@ const useLogar = () => {
 
             if (resposta.data.token) {
                 Cookies.set("token", resposta.data.token, { expires: 7 });
+                Cookies.set("id_usuario", resposta.data.usuario.id, { expires: 7 });
             }
 
             if (resposta.data.usuario.tipo === 'DIRETOR') {
