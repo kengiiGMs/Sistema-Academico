@@ -1,12 +1,16 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import useListarEstudantes from '../../hooks/estudante/useListarEstudantes';
-import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material"
+import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Button } from "@mui/material"
 import IndicadorDeCarregamento from '../../components/indicadorDeCarregamento';
 import BarraDeNavegacao from '../../components/barraDeNavegacao';
-
+import JanelaModalCadastrarEstudante from '../../components/janelaModalPersonalizada/janelaModalCadastrarEstudante';
 
 const Gestao = () => {
     const [solicitar, dados, loading] = useListarEstudantes();
+    const [abrirModal, setAbrirModal] = useState(false);
+
+    const abrir = () => setAbrirModal(true);
+    const fechar = () => setAbrirModal(false);
 
     useEffect(() => {
         solicitar();
@@ -18,7 +22,9 @@ const Gestao = () => {
             {loading ? (
                 <IndicadorDeCarregamento />
             ) : (
-                <Box sx={{ marginTop: '30px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <Box sx={{ marginTop: '30px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+                    <Button onClick={abrir} sx={{ m: '1.5vh' }} variant="contained">Cadastrar</Button>
+
                     <TableContainer sx={{ maxWidth: { xs: '95%', sm: '70%' }, borderRadius: '10px' }}>
                         <Table stickyHeader>
                             <TableHead>
@@ -52,6 +58,7 @@ const Gestao = () => {
                     </TableContainer>
                 </Box>
             )}
+            <JanelaModalCadastrarEstudante abrir={abrirModal} fechar={fechar} atualizar={solicitar} />
         </Box>
     );
 };
