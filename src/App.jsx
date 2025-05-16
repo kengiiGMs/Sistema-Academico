@@ -7,12 +7,13 @@ import Home from './pages/Home'
 
 import RotaProtegidaDiretor from './middlewares/RotaProtegidaDiretor'
 import RotaProtegidaUsuario from './middlewares/RotaProtegidaUsuario'
+import Autenticado from './middlewares/Autenticado'
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Login />} />
+        <Route path='/' element={<Autenticado><Login /></Autenticado>} />
         <Route path='/gestao' element={<RotaProtegidaDiretor><Gestao /></RotaProtegidaDiretor>} />
         <Route path='/home' element={<RotaProtegidaUsuario><Home /></RotaProtegidaUsuario>} />
         <Route path='*' element={<NaoEncontrado />} />
