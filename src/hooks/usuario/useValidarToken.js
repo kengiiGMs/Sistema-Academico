@@ -1,10 +1,13 @@
 import Cookies from "js-cookie";
 import api from "../../service/api";
 
-const useValidarTokenDiretor = async () => {
+const useValidarToken = async () => {
     const token = Cookies.get("token");
+    const user = Cookies.get("id_usuario");
 
-    if (!token) {
+    if (!token || !user) {
+        Cookies.remove('token');
+        Cookies.remove('id_usuario');
         return false
     } else {
         try {
@@ -25,4 +28,4 @@ const useValidarTokenDiretor = async () => {
     }
 }
 
-export default useValidarTokenDiretor;
+export default useValidarToken;
